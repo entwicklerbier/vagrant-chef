@@ -72,3 +72,31 @@ long_description 'Installs/Configures salad'
 version          '0.1.0'
 ```
 
+## Link recipe with Vagrant
+
+Enable omnibus installer in Vagrantfile:
+```
+config.omnibus.chef_version = '11.16'
+```
+
+Enable Berkshelf in Vagrantfile:
+```
+config.berkshelf.enabled = true
+```
+
+Define our recipe to run when VM gets provisioned
+```
+config.vm.provision :chef_solo do |chef|
+    chef.json = {
+    }
+
+    chef.run_list = [
+        "recipe[salad::default]"
+    ]
+  end
+```
+
+## First boot of Vagrant machine
+```
+vagrant up
+```
