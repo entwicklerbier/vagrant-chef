@@ -44,3 +44,8 @@ Init a new Vagrant machine with Ubuntu 14.04 64bit:
 ```
 vagrant init ubuntu/trusty64
 ```
+
+## Berskfile
+
+Create a Berksfile and a corresponding metadata.rb.
+These are needed for adding others recipes.
