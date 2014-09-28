@@ -49,3 +49,26 @@ vagrant init ubuntu/trusty64
 
 Create a Berksfile and a corresponding metadata.rb.
 These are needed for adding others recipes.
+
+## Create our first recipe
+
+Add a folder named recipes and insert a default.rb
+This file contains the definition of our cookbook in the comment section
+```
+#
+# Cookbook Name:: salad
+# Recipe:: default
+#
+```
+
+Add Cookbook definition to metadata.rb
+```
+name             'salad'
+maintainer       'Markus Klepp'
+maintainer_email 'khor@entwicklerbier.org'
+license          'The MIT License (MIT)'
+description      'Installs/Configures salad'
+long_description 'Installs/Configures salad'
+version          '0.1.0'
+```
+
