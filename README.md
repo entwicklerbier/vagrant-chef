@@ -168,3 +168,29 @@ After cooking we can visit our new nginx site on localhost:8080
 ```
 vagrant provision
 ```
+
+## Upload to production server
+
+You need a running VPS at the provider of your choice. I prepared a server under salad.entwicklerbier.org.
+To bootstrap Chef and install our recipe, we need the following command:
+
+```
+knife solo bootstrap root@salad.entwicklerbier.org
+```
+
+This command will install our cookbook, but does not run anything. To run the default recipe we need to set the content of nodes/salad.entwicklerbier.org to:
+```
+{
+  "run_list": [
+    "recipe[salad::default]"
+  ]
+}
+```
+
+To cook the cookbook on our node type:
+```
+knife solo cook root@salad.entwicklerbier.org
+```
+
+An error should be displayed, because of the order of the commands in the web_server recipe. We enable the salad site before it is defined. So lets move the nginx_site definition to the end of the file.
+Another run of the cook command will finish and make our site available under http://salad.entwicklerbier.org.
