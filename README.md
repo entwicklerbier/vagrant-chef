@@ -133,3 +133,38 @@ To reload the Vagrantfile type:
 ```
 vagrant reload
 ```
+
+## Create our own nginx site
+
+Disable default nginx site in web_server.rb:
+```
+nginx_site 'default' do
+  enable false
+end
+```
+
+Create index.html.erb and nginx_site.erb in templates/default
+
+Add lines to web_server.rb:
+```
+directory '/var/www/salad' do
+  action :create
+end
+
+template '/var/www/salad/index.html' do
+  source 'index.html.erb'
+end
+
+template "#{node['nginx']['dir']}/sites-available/salad" do
+  source 'nginx_site.erb'
+end
+
+nginx_site 'salad' do
+  enable true
+end
+```
+
+After cooking we can visit our new nginx site on localhost:8080
+```
+vagrant provision
+```
