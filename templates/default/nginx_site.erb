@@ -2,6 +2,8 @@ server {
   listen 80;
   server_name  <%= node['hostname'] %>;
 
+  error_log /var/log/nginx/error.log <%= 'debug' if node['web_server']['debug_log'] %>;
+
   location / {
     root   /var/www/salad;
     index  index.html;

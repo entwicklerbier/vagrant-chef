@@ -194,3 +194,26 @@ knife solo cook root@salad.entwicklerbier.org
 
 An error should be displayed, because of the order of the commands in the web_server recipe. We enable the salad site before it is defined. So lets move the nginx_site definition to the end of the file.
 Another run of the cook command will finish and make our site available under http://salad.entwicklerbier.org.
+
+## Different configuration for development and production
+
+Say we want to enable a more verbose debug log on the development machine.
+We need to supply default value in attributes/default.rb
+```
+default['web_server']['debug_log'] = false
+
+```
+
+In our Vagrantfile add the debug_log=true config to the Chef config:
+```
+web_server: {
+  debug_log: true
+}
+```
+
+And alter our nginx_site.erb to use the advanced log:
+```
+error_log /var/log/nginx/error.log <%= 'debug' if node['web_server']['debug_log'] %>;
+```
+
+We can now provision our vagrant machine and cook on our node to apply these changes.

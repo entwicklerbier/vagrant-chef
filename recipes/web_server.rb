@@ -4,7 +4,6 @@ nginx_site 'default' do
   enable false
 end
 
-
 %w[ /var/www /var/www/salad ].each do |path|
   directory path do
     action :create
