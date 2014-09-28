@@ -100,3 +100,36 @@ config.vm.provision :chef_solo do |chef|
 ```
 vagrant up
 ```
+
+## Add nginx to our cookbook
+
+To install nginx, we use the nginx recipe from https://github.com/miketheman/nginx.
+Add nginx dependency to metadata.rb  
+```
+depends 'nginx', '~> 2.7.4'
+```
+
+Create a new recipe named recipes/web_server.rb that includes the nginx recipe. It will also contain our basic configuration for the web server.
+```
+include_recipe 'nginx'
+```
+
+Add webserver recipe to our default recipe.
+```
+include_recipe 'web_server'
+```
+
+To cook our cookbook (in this case install nginx in its default state) just type:
+```
+vagrant provision
+```
+
+To access the now running nginx on http://localhost:8080 we need to forward the clients port 80 to the hosts port 8080 in our Vagrantfile.
+```
+config.vm.network "forwarded_port", guest: 80, host: 8080
+
+```
+To reload the Vagrantfile type:
+```
+vagrant reload
+```
