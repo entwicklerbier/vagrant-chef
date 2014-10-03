@@ -18,6 +18,24 @@ template "#{node['nginx']['dir']}/sites-available/salad" do
   source 'nginx_site.erb'
 end
 
+%w[ /etc/ssl /etc/ssl/certs /etc/ssl/private ].each do |path|
+  directory path do
+    action :create
+  end
+end
+
+cookbook_file 'salad.entwicklerbier.org.crt' do
+  path '/etc/ssl/certs/salad.entwicklerbier.org.crt'
+end
+
+cookbook_file 'salad.entwicklerbier.org.key' do
+  path '/etc/ssl/private/salad.entwicklerbier.org.key'
+end
+
 nginx_site 'salad' do
   enable true
+end
+
+service 'nginx' do
+  action :restart
 end

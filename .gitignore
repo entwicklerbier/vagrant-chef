@@ -1,2 +1,5 @@
 .vagrant
 Berksfile.lock
+
+
+files/default/salad.entwicklerbier.org.key

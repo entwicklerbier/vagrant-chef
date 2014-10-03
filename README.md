@@ -217,3 +217,12 @@ error_log /var/log/nginx/error.log <%= 'debug' if node['web_server']['debug_log'
 ```
 
 We can now provision our vagrant machine and cook on our node to apply these changes.
+
+## Deploying SSL-Certificates
+
+Adapt your nginx-config to load the ssl certs.
+
+You should really not put your unencrypted key files in a public repo.
+There are a couple of new steps in the webserver recipe to copy the certificate chain/key in position.
+
+Provision and ssl :)
